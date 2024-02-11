@@ -46,11 +46,8 @@ int main(int argc, char *argv[]){
     //ios_base::sync_with_stdio(0);
     //cin.tie(0); cout.tie(0);
     Stck st;
-    string s;
+    string s = "true";
     if(argc > 1){
-        s = "true";
-    }
-    else{
         s = argv[1];
     }
     if(s == "true"){
