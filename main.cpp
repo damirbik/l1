@@ -32,6 +32,7 @@ struct Stck{
         Node* t = first;
         while(!is_empty() && t->n < 0){
             t = t->next;
+            pop();
         }
         if(!is_empty()){
             c = t->n;
