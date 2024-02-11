@@ -6,8 +6,6 @@ using namespace std;
 
 mt19937_64 rnd(chrono::steady_clock::now().time_since_epoch().count());
 
-bool ch;
-
 struct Node{
     int n;
     Node* next;
@@ -29,16 +27,24 @@ struct Stck{
         first = t;
     }
 
-    vector<int> ans(){
-        vector<int>vc;
-        if(is_empty()) { return vc; }
+    int ans(){
+        int c = -1;
         Node* t = first;
-        while(t){
-            if(t->n > 0){
-                vc.push_back(t->n);
-            }
+        while(!is_empty() && t->n < 0){
             t = t->next;
         }
+        if(!is_empty()){
+            c = t->n;
+        }
+        pop();
+        return c;
+    }
+
+    void pop(){
+        if(is_empty()) { return; }
+        Node* t = first;
+        first = t->next;
+        delete t;
     }
 };
 
@@ -46,29 +52,33 @@ int main(int argc, char *argv[]){
     //ios_base::sync_with_stdio(0);
     //cin.tie(0); cout.tie(0);
     Stck st;
-    string s = "true";
+    string s;
+    bool ch = 1;
     if(argc > 1){
         s = argv[1];
     }
-    if(s == "true"){
-        ch = 1;
+    if(s == "false"){
+        ch = 0;
     }
     if(ch){ cout << "Input values:\n"; }
-    int n, i = 1;
+    int n, i = 1, it = 0;
     while(1){
         if(ch){ cout << 'n' << i << " ="; }
         cin >> n;
         if(!n){
             break;
         }
+        else if(n < 0){
+            it++;
+        }
         st.insert(n);
         i++;
     }
+    i -= it;
     if(ch){ cout << "Aanswer is:\n"; }
-    vector<int> vc = st.ans();
-    for (int j = 0; j < vc.size(); ++j) {
+    for (int j = 0; j < i - 1; ++j) {
         if(ch){ cout << 'n' << j + 1 << " = "; }
-        cout << vc[j] << '\n';
+        cout << st.ans() << '\n';
     }
     return 0;
 }
