@@ -27,18 +27,10 @@ struct Stck{
         first = t;
     }
 
-    int ans(){
-        int c = -1;
+    int top(){
+        if(is_empty()) { cout << "error, stack is empty\n"; }
         Node* t = first;
-        while(!is_empty() && t->n < 0){
-            t = t->next;
-            pop();
-        }
-        if(!is_empty()){
-            c = t->n;
-        }
-        pop();
-        return c;
+        return t->n;
     }
 
     void pop(){
@@ -62,24 +54,24 @@ int main(int argc, char *argv[]){
         ch = 0;
     }
     if(ch){ cout << "Input values:\n"; }
-    int n, i = 1, it = 0;
+    int n, i = 1, it = 1;
     while(1){
         if(ch){ cout << 'n' << i << " ="; }
         cin >> n;
         if(!n){
             break;
         }
-        else if(n < 0){
-            it++;
-        }
         st.insert(n);
         i++;
     }
-    i -= it;
     if(ch){ cout << "Aanswer is:\n"; }
     for (int j = 0; j < i - 1; ++j) {
-        if(ch){ cout << 'n' << j + 1 << " = "; }
-        cout << st.ans() << '\n';
+        int ans = st.top();
+        if(ans > 0){
+            if(ch){ cout << 'n' << it << " = "; }
+            cout << ans << '\n';
+        }
+        st.pop();
     }
     return 0;
 }
